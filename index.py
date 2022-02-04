@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
@@ -11,18 +11,36 @@ def index():
     return "И на Марсе будут яблони цвести!"
 @app.route('/promotion')
 def promotion():
-    return """<h3>Человечество вырастает из детства.
+    return """<p>Человечество вырастает из детства.</p>
 
-            Человечеству мала одна планета.
+            <p>Человечеству мала одна планета.</p>
 
-            Мы сделаем обитаемыми безжизненные пока планеты.
+            <p>Мы сделаем обитаемыми безжизненные пока планеты.</p>
 
-            И начнем с Марса!
+            <p>И начнем с Марса!</p>
 
-            Присоединяйся!</h3>"""
-@app.route("/image_mars")
+            <p>Присоединяйся!</p>"""
+@app.route("/image")
 def image_mars():
-    return render_template('image_mars.html')
+    return """<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Привет, Марс!</title>
+</head>
+<body>
+    <h1>Жди нас, Марс!</h1>
+    
+        <p><img src="static/img/300px-OSIRIS_Mars_true_color.jpg" alt="qwerty" ></p>
+        <p>Вот она какая, красная планета.</p>
+    
+
+        
+    
+</body>
+</html>"""
 
 
 if __name__ == '__main__':
