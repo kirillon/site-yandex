@@ -1,7 +1,9 @@
 
 import os
 from flask import Flask, render_template,request,redirect
-UPLOAD_FOLDER = '/static/img'
+from werkzeug.utils import secure_filename
+
+UPLOAD_FOLDER = 'galerea/static/img/'
 ALLOWED_EXTENSIONS = { 'png', 'jpg', 'jpeg', 'gif'}
 app = Flask(__name__)
 
@@ -10,8 +12,12 @@ paints = []
 
 @app.route('/galery', methods=["GET"])
 def index():
-   
-        return render_template('image_mars.html')
+    paths = []
+    for filename in os.listdir(app.config['UPLOAD_FOLDER']):
+        if filename[filename.rfind(".") + 1:] in ['jpg', 'jpeg', 'png']:
+                paths.append("/static/img/"+filename)
+    
+    return render_template('image_mars.html',paths=paths)
     
 @app.route('/galery', methods=['POST'])
 def my_form_post():
@@ -28,9 +34,10 @@ def my_form_post():
         return redirect('/galery')
     if file:
         
-        filename = file.filename
         
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        
+        filename = secure_filename(file.filename)
+        file.save(app.config['UPLOAD_FOLDER'] + filename)
              
     
     return redirect('/galery')

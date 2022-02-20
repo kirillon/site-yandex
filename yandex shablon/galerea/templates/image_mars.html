@@ -22,10 +22,18 @@
       </ul>
       
   </nav>
-  <form method="POST" action="/galery" name = "text">
+
+  {%for file in paths%}
+  {%if "MARS-2-7.png" not in file%}
+  <div>
+  <img src={{file}} class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="">
+  </div>
+  {%endif%}
+  {% endfor %}
+  <form method="POST" action="/galery" name = "text" enctype="multipart/form-data">
     <div class="form-group">
       <label for=""></label>
-      <input type="file" class="form-control-file" name="file" id="" placeholder="" aria-describedby="fileHelpId">
+      <input type="file" class="form-control-file" name="file" id="" placeholder="" aria-describedby="fileHelpId" >
         
       <button type="submit" class="btn btn-primary" action="/galery" method="POST">Отправить форму</button>
     </div>
